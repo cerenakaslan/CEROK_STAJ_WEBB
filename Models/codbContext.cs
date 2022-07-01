@@ -28,6 +28,7 @@ namespace CEROK_STAJ_WEB.Models
         public virtual DbSet<Recete> Recetes { get; set; } = null!;
         public virtual DbSet<Tani> Tanis { get; set; } = null!;
         public virtual DbSet<Tetkik> Tetkiks { get; set; } = null!;
+        public virtual DbSet<RandevuTetkik> RandevuTetkiks { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -255,30 +256,36 @@ namespace CEROK_STAJ_WEB.Models
                 entity.ToTable("Tetkik");
 
                 entity.Property(e => e.tetkikAyrinti).HasMaxLength(200);
-                entity.Property(e => e.tetkikSonuc).HasMaxLength(4000);
+               
 
 
-                entity.HasOne(d => d.doktor)
-                    .WithMany(p => p.Tetkiks)
-                    .HasForeignKey(d => d.doktorID)
+                
+
+                
+
+
+            });
+            modelBuilder.Entity<RandevuTetkik>(entity =>
+            {
+                entity.ToTable("RandevuTetkik");
+                entity.Property(e => e.Sonuc).HasMaxLength(400);
+                entity.Property(e => e.IsChecked).HasDefaultValue(null);
+                entity.HasOne(d => d.Randevu)
+                    .WithMany(p => p.RandevuTetkiks)
+                    .HasForeignKey(d => d.RandevuID)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Tetkik_Doktor");
-
-                entity.HasOne(d => d.hasta)
-                    .WithMany(p => p.Tetkiks)
-                    .HasForeignKey(d => d.hastaID)
+                    .HasConstraintName("FK_RandevuTetkik_RandevuKismi");
+                entity.HasOne(d => d.Tetkik)
+                    .WithMany(p => p.RandevuTetkiks)
+                    .HasForeignKey(d => d.TetkikID)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Tetkik_Hasta");
+                    .HasConstraintName("FK_RandevuTetkik_Tetkik");
 
-                entity.HasOne(d => d.randevu)
-                    .WithMany(p => p.Tetkiks)
-                    .HasForeignKey(d => d.randevuID)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Tetkik_RandevuKismi");
             });
 
             OnModelCreatingPartial(modelBuilder);
         }
+        
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }

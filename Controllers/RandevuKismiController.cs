@@ -55,7 +55,7 @@ namespace CEROK_STAJ_WEB.Controllers_ViewModels_
                                       randevuID = r.randevuID,
                                       Recetes = null,
                                       Tanis = null,
-                                      Tetkiks = null
+                                      RandevuTetkiks=null
 
                                   }).ToList<RandevuKismi>();
             }
@@ -70,6 +70,15 @@ namespace CEROK_STAJ_WEB.Controllers_ViewModels_
             using (var context = new codbContext())
             {
                 return context.RandevuKismis.Where(u => u.randevuID == randevuuID).Select(x => x).FirstOrDefault()!;
+            }
+        }
+        [HttpGet]
+        [Route("RandevusByHastaID/{hastaID}")]
+        public List<RandevuKismi> GetRandevusByHastaID(int hastaID)
+        {
+            using(codbContext context =new codbContext())
+            {
+                return context.RandevuKismis.Where(x => x.hastaID == hastaID).Select(x => x).ToList<RandevuKismi>();
             }
         }
 

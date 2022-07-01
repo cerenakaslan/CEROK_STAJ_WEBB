@@ -11,7 +11,7 @@ namespace CEROK_STAJ_WEB.Models
             RandevuKismis = new HashSet<RandevuKismi>();
             Recetes = new HashSet<Recete>();
             Tanis = new HashSet<Tani>();
-            Tetkiks = new HashSet<Tetkik>();
+            
         }
 
         public int doktorID { get; set; }
@@ -23,6 +23,6 @@ namespace CEROK_STAJ_WEB.Models
         public virtual ICollection<RandevuKismi> RandevuKismis { get; set; }
         public virtual ICollection<Recete> Recetes { get; set; }
         public virtual ICollection<Tani> Tanis { get; set; }
-        public virtual ICollection<Tetkik> Tetkiks { get; set; }
+        
     }
 }

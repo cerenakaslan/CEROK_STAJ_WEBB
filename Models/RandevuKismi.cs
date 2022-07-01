@@ -9,18 +9,19 @@ namespace CEROK_STAJ_WEB.Models
         {
             Recetes = new HashSet<Recete>();
             Tanis = new HashSet<Tani>();
-            Tetkiks = new HashSet<Tetkik>();
+            RandevuTetkiks = new HashSet<RandevuTetkik>();
         }
 
         public int doktorID { get; set; }
         public int hastaID { get; set; }
-        public int? randevuID { get; set; }
+        public int randevuID { get; set; }
         public DateTime gunsaat { get; set; }
 
         public virtual Doktor doktor { get; set; } = null!;
         public virtual Hasta hasta { get; set; } = null!;
         public virtual ICollection<Recete> Recetes { get; set; }
         public virtual ICollection<Tani> Tanis { get; set; }
-        public virtual ICollection<Tetkik> Tetkiks { get; set; }
+        public virtual ICollection<RandevuTetkik> RandevuTetkiks { get; set; }
+
     }
 }

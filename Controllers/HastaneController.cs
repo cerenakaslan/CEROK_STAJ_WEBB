@@ -33,18 +33,16 @@ namespace CEROK_STAJ_WEB.Controllers_ViewModels_
 
         // POST api/<HastaneController>
         [HttpPost]
-        public void Post(string isim, int ilceid)
+        public void Post(string isim,int ilceid)
         {
-            using (var context = new codbContext())
+            using(var context =new codbContext())
             {
                 Hastane hastane = new Hastane()
                 {
                     hastaneIsim = isim,
-                    ilceID = ilceid,
-                    ilce = context.Ilces.Where(x => x.ilceID == ilceid).Select(y => y).FirstOrDefault()
+                    ilceID=ilceid,
+                    ilce=context.Ilces.Where(x=>x.ilceID==ilceid).Select(x=>x).First()
                 };
-                                     
-                
                 context.Hastanes.Add(hastane);
                 context.SaveChanges(); 
             }

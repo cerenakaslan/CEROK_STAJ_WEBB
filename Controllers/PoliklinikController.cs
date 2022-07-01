@@ -33,14 +33,13 @@ namespace CEROK_STAJ_WEB.Controllers_ViewModels_
 
         // POST api/<PoliklinikController>
         [HttpPost]
-        public void Post( string isimBolum, string isimHastane )
+        public void Post( string isim)
         {
             using (var context = new codbContext())
             {
                 Poliklinik bolum = new Poliklinik()
                 {
-                    bolumIsmi = isimBolum
-                    
+                    bolumIsmi = isim
                 };
                 context.Polikliniks.Add(bolum);
                 context.SaveChanges();

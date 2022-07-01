@@ -35,14 +35,23 @@ namespace CEROK_STAJ_WEB.Controllers_ViewModels_
                 return context.Hastas.Where(u => u.hastaID == id).Select(x => x).FirstOrDefault()!;
             }
         }
-       // [HttpGet("{randevuID}")]
 
         // POST api/<HastaController>
         [HttpPost]
         public void Post( string tc,string pass,string isim,string soyad,string cins,DateTime dogumTarihi, string telNo)
         {
             using(var context=new codbContext())                                               
-            {             
+            {
+                //var hasta = new Hasta()
+                //{
+                //    isim = isim,
+                //    tc = tc,
+                //    sifre = pass,
+                //    soyad = soyad,
+                //    cinsiyet = cins,
+                //    dogumTarihi = dogumTarihi,
+                //    telefonNo = telNo
+                //};
                 context.Hastas.Add(new Hasta
                 {
                     isim = isim,
@@ -68,7 +77,7 @@ namespace CEROK_STAJ_WEB.Controllers_ViewModels_
             ,string? email,string? kanGrubu, int? yas, int? boy, int? kilo)
         {
             using(var context=new codbContext())
-            {
+            {// burayı conditionliycaz daha
                 Hasta hasta = (Hasta)context.Hastas.Where(hst => hst.hastaID == id).Select(x => x).FirstOrDefault();
                 hasta.isim = isim;
                 hasta.tc = tc;

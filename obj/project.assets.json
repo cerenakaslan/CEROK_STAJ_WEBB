@@ -10225,27 +10225,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\cakaslan\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages": {},
+    "C:\\Users\\obagdatli\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\git\\CEROK_STAJ_WEB\\CEROK_STAJ_WEB\\CEROK_STAJ_WEB.csproj",
+      "projectUniqueName": "C:\\git\\CEROK_STAJ_WEBB\\CEROK_STAJ_WEB.csproj",
       "projectName": "CEROK_STAJ_WEB",
-      "projectPath": "C:\\git\\CEROK_STAJ_WEB\\CEROK_STAJ_WEB\\CEROK_STAJ_WEB.csproj",
-      "packagesPath": "C:\\Users\\cakaslan\\.nuget\\packages\\",
-      "outputPath": "C:\\git\\CEROK_STAJ_WEB\\CEROK_STAJ_WEB\\obj\\",
+      "projectPath": "C:\\git\\CEROK_STAJ_WEBB\\CEROK_STAJ_WEB.csproj",
+      "packagesPath": "C:\\Users\\obagdatli\\.nuget\\packages\\",
+      "outputPath": "C:\\git\\CEROK_STAJ_WEBB\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\cakaslan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\obagdatli\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -10254,7 +10251,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
-        "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
