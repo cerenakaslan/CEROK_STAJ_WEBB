@@ -11,6 +11,13 @@ namespace CEROK_STAJ_WEB.Controllers_ViewModels_
     
     public class ReceteController : ControllerBase
     {
+        codbContext _context;
+        public ReceteController(codbContext context)
+        {
+            _context = context;
+        }
+
+    
         /// GET: api/<ReceteController>
         [HttpGet]
         public List<Recete> Get()
@@ -31,15 +38,15 @@ namespace CEROK_STAJ_WEB.Controllers_ViewModels_
                 return context.Recetes.Where(u => u.receteID == receteeID).Select(x => x).FirstOrDefault()!;
             }
         }
-        //[HttpGet]
-        //[Route("byHasta/{hastaid}")]
-        //public List<Recete> GetRecetesyHastaID(int hastaid)
-        //{
-        //    using (codbContext context =new codbContext())
-        //    {
-        //        return context.Recetes.Where(r=>r.hastaID == hastaid).Select(x => x).ToList();
-        //    }
-        //}
+        [HttpGet]
+        [Route("RecetesByHastaID/{hastaid}")]
+        public List<Recete> GetRecetesyHastaID(int hastaid)
+        {
+            using (codbContext context =new codbContext())
+            {
+                return context.Recetes.Where(r=>r.hastaID == hastaid).Select(x => x).ToList();
+            }
+        }
 
         // POST api/<ReceteController>
         [HttpPost]

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CEROK_STAJ_WEB.Models;
 using System.Text;
-
+using CEROK_STAJ_WEB.DAL.InterfaceUsers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,53 +13,22 @@ namespace CEROK_STAJ_WEB.Controllers_ViewModels_
 
     public class RandevuKismiController : ControllerBase
     {
+        private RandevuDAL _randevudal;
+        public RandevuKismiController(RandevuDAL randevudal)
+        {
+            this._randevudal = randevudal;
+        }
         /// GET: api/<RandevuKismiController>
         [HttpGet]
         public List<RandevuKismi> Get()
         {
-            using (var context = new codbContext())
-            {
-                return (List<RandevuKismi>)context.RandevuKismis.ToList();
-            }
+            return _randevudal.GetAll();
         }
         [HttpGet]
         [Route("byDoc/{doktorid}")]
         public List<RandevuKismi> getRDVs(int doktorid)
         {
-            //codbContext context = new codbContext();
-            //List<RandevuKismi> listrdv= context.RandevuKismis.Where(rdv => rdv.doktorID == doktorid).Select(x => x).ToList();
-            //foreach (var itemHasta in listrdv)
-            //{
-            //    itemHasta.hasta = context.Hastas.Where(x => x.hastaID == itemHasta.hastaID).Select(y => y).FirstOrDefault();
-            //}
-            //return listrdv;
-
-            //return context.RandevuKismis.Include(x=>x.hasta).Where(x=> x.hastaID == ).Select(y=> y).ToList();
-            //return context.RandevuKismis.Include(x => x.hasta).Include(x => x.hasta.RandevuKismis).Include(x => x.hasta.RandevuKismis.Select(x => x.doktorID)).Where(x => x.doktorID == doktorid).ToList();
-            //context.Dispose();
-            List<RandevuKismi> randevuListesi = null;
-            using (codbContext context = new codbContext())
-            {
-                randevuListesi = (from r in context.RandevuKismis
-                                  join h in context.Hastas on r.hastaID equals h.hastaID
-                                  join d in context.Doktors on r.doktorID equals d.doktorID
-
-                                  where r.doktorID == doktorid //!//
-                                  select new RandevuKismi()
-                                  {
-                                      hasta = h,
-                                      doktor = d,
-                                      doktorID = r.doktorID,
-                                      gunsaat = r.gunsaat,
-                                      hastaID = r.hastaID,
-                                      randevuID = r.randevuID,
-                                      Recetes = null,
-                                      Tanis = null,
-                                      RandevuTetkiks=null
-
-                                  }).ToList<RandevuKismi>();
-            }
-            return randevuListesi;
+            return _randevudal.GetDoktorRandevus(doktorid);
         }
 
         // GET api/<RandevuKismiController>/5
@@ -67,69 +36,36 @@ namespace CEROK_STAJ_WEB.Controllers_ViewModels_
         [Route("byRDV/{randevuuID}")]
         public RandevuKismi Get(int randevuuID)
         {
-            using (var context = new codbContext())
-            {
-                return context.RandevuKismis.Where(u => u.randevuID == randevuuID).Select(x => x).FirstOrDefault()!;
-            }
+            return _randevudal.Get(randevuuID);
         }
         [HttpGet]
-        [Route("RandevusByHastaID/{hastaID}")]
-        public List<RandevuKismi> GetRandevusByHastaID(int hastaID)
+        [Route("GetHastaRandevus/{HastaId}")]
+        public List<RandevuKismi> GetHastaRandevus(int HastaId)
         {
-            using(codbContext context =new codbContext())
-            {
-                return context.RandevuKismis.Where(x => x.hastaID == hastaID).Select(x => x).ToList<RandevuKismi>();
-            }
+            return _randevudal.GetHastaRandevus(HastaId);
         }
 
         // POST api/<RandevuKismiController>
         [HttpPost]
-        public void Post(DateTime gunsaatt, int hastaid, int doktorid)
+        public void Post(RandevuKismi randevu)
         {
-           
-            using (var context = new codbContext())
-            {
-                var randevukismi = new RandevuKismi()
-                {
-                    
-                    doktorID = doktorid,
-                    hastaID = hastaid,
-                    gunsaat = gunsaatt
-                   
-            };
-                //randevukismi.hastaID = hastaid;
-                //randevukismi.doktorID = doktorid;
-                //randevukismi.gunsaat = gunsaatt;
-                context.RandevuKismis.Add(randevukismi);
-                context.SaveChanges();
-            }
+
+            _randevudal.Add(randevu);
         }
 
         // PUT api/<RandevuKismiController>/5
         [HttpPut("{randevuuID}")]
-        public void Put(int randevuuID, DateTime gunsaatt, int doktorid, int hastaid)
+        public void Put(int id,RandevuKismi randevu)
         {
-            using (var context = new codbContext())
-            {
-                RandevuKismi randevukismi = (RandevuKismi)context.RandevuKismis.Where(u => u.randevuID == randevuuID).Select(ran => ran).FirstOrDefault();
-               // randevukismi.gunsaat = Convert.ToDateTime(gunsaatttt);
-                randevukismi.doktorID = doktorid;
-                randevukismi.hastaID = hastaid;
-                randevukismi.gunsaat = gunsaatt;
-
-            }
+            _randevudal.Update(id, randevu);
         }
 
         // DELETE api/<RandevuKismiController>/5
         [HttpDelete("{randevuuID}")]
         public void Delete(int randevuuID)
         {
-            using (var context = new codbContext())
-            {
-                RandevuKismi ran = (RandevuKismi)context.RandevuKismis.Where(u => u.randevuID == randevuuID).Select(ran => ran.randevuID == randevuuID);
-                context.RandevuKismis.Remove(ran);
-                context.SaveChanges();
-            }
+            RandevuKismi randevu = this.Get(randevuuID);
+            _randevudal.Delete(randevu);
         }
     }
 }
